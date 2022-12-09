@@ -1,5 +1,4 @@
 #include "E2physx.h"
-#include <vector>
 
 using namespace std;
 
@@ -15,17 +14,53 @@ class E2Physx_Vector2D {
 
 typedef vector<E2Physx_Vector2D> E2Physx_Verts;
 
-#define E2Physx_SQUARE 1
+
+class E2Physx_Collider {
+public:
+    E2Physx_Collider() {
+
+    }
+};
+
+class E2Physx_RigidBody {
+public:
+    E2Physx_RigidBody() {
+
+    }
+};
+
+namespace env {
+    vector<E2Physx_Collider> colliders;
+    vector<E2Physx_Collider> rigidbodies;
+}
 
 class E2Physx_Object {
-    public:
+private:
+    int collider_index=-1;
+    int rigidbody_index=-1;
+public:
     E2Physx_Vector2D position;
     E2Physx_Vector2D size;
-    E2Physx_Object(E2Physx_Vector2D Position, E2Physx_Vector2D Size) {
+    E2Physx_Object(E2Physx_Vector2D Position,E2Physx_Vector2D Size, bool createCollider, bool createRigidBody) {
         position = Position; size = Size;
+        if(createCollider) {
+            env::colliders.push_back(E2Physx_Collider());
+            collider_index = env::colliders.size();
+        }
+        if(createRigidBody) {
+            env::rigidbodies.push_back(E2Physx_Collider());
+            rigidbody_index = env::rigidbodies.size();
+        }
     };
+    void update() {
+        if(!(collider_index == -1)) {
+
+        }
+        if(!(rigidbody_index == -1)) {
+
+        }
+    }
     E2Physx_Vector2D getCenterPos() {
         return E2Physx_Vector2D(size.x/2,size.y/2);
     }
-    
 };
